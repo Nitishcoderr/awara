@@ -67,7 +67,7 @@ const Experience = () => {
               </motion.div>
 
               {/* Stats Cards */}
-              <div className="absolute -right-16 top-24 space-y-6">
+              <div className="absolute hidden md:block -right-16 top-24 space-y-6">
                 <motion.div
                   initial={{ x: 50, opacity: 0 }}
                   animate={isInView ? { x: 0, opacity: 1 } : {}}
