@@ -18,16 +18,17 @@ const Header = () => {
 
         {/* Navigation links in the center */}
         <nav className="hidden md:flex space-x-20 items-center">
-          <Link href="/" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          <Link href="/#home" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             Home
           </Link>
-          <Link href="/about" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          
+          <Link href="/about" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             About
           </Link>
-          <Link href="/destination" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          <Link href="/destination" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             Destination
           </Link>
-          <Link href="/tour" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          <Link href="/tour" className="color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             Tour
           </Link>
         </nav>
@@ -42,7 +43,7 @@ const Header = () => {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase focus:outline-none"
+          className="md:hidden color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <svg
@@ -65,16 +66,16 @@ const Header = () => {
       {/* Mobile menu links */}
       {isMenuOpen && (
         <div className="md:hidden bgAccent shadow-md py-4">
-          <Link href="/" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          <Link href="/" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             Home
           </Link>
-          <Link href="/about" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          <Link href="/about" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             About
           </Link>
-          <Link href="/destination" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          <Link href="/destination" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             Destination
           </Link>
-          <Link href="/tour" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-2xl uppercase">
+          <Link href="/tour" className="block px-4 py-2 color1 hover:text-[#F66F4D] transition-all duration-300 font-medium text-xl uppercase">
             Tour
           </Link>
         </div>

@@ -8,6 +8,15 @@ body {
   font-family: "Noto Sans", serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+
+section {
+  scroll-margin-top: 100px;
+}
+
 .color1{
   color: #2E476B;
 }
