@@ -1,7 +1,8 @@
 "use client";
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaStar } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaStar, FaPlane, FaCompass, FaSuitcase, FaMapPin } from 'react-icons/fa';
 
 const TopDestinations = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -60,8 +61,58 @@ const TopDestinations = () => {
     activeFilter === 'all' ? true : dest.category === activeFilter
   );
 
+    // Animation variants
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+        exit: { opacity: 0, scale: 0.8 }
+      };
+    
+      const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.2
+          }
+        }
+      };
+
   return (
-    <section className="relative py-20 bgAccent">
+    <section className="relative py-20 bgAccent overflow-hidden">
+
+<motion.div
+        className="absolute top-1/4 left-0 text-[#F66F4D]/10 text-6xl z-0"
+        animate={{ x: [-100, 1000] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      >
+        <FaPlane className="rotate-45" />
+      </motion.div>
+
+      <motion.div
+        className="absolute top-1/3 right-20 text-[#F66F4D]/10 text-8xl z-0"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      >
+        <FaCompass />
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-1/4 left-1/4 text-[#F66F4D]/10 text-5xl z-0"
+        animate={{ y: [0, -40, 0] }}
+        transition={{ duration: 6, repeat: Infinity }}
+      >
+        <FaSuitcase />
+      </motion.div>
+
+      <motion.div
+        className="absolute top-1/3 left-1/3 text-[#F66F4D]/10 text-7xl z-0"
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      >
+        <FaMapPin />
+      </motion.div>
       <div className="container mx-auto px-4">
         {/* Heading Section */}
         <div className="text-center mb-14">
@@ -73,10 +124,10 @@ const TopDestinations = () => {
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {/* Animated Filter Buttons */}
+            <motion.div className="flex flex-wrap justify-center gap-4 mb-12">
           {filters.map(filter => (
-            <button
+            <motion.button
               key={filter}
               onClick={() => setActiveFilter(filter)}
               className={`px-6 py-3 rounded-full capitalize transition-all ${
@@ -84,28 +135,46 @@ const TopDestinations = () => {
                   ? 'bg-[#F66F4D] text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-100'
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {filter}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Pinterest-style Grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-          {filteredDestinations.map((dest) => (
-            <div 
-              key={dest.id}
-              className={`relative group break-inside-avoid rounded-2xl shadow-lg ${dest.aspect}`}
-            >
-              <div className="relative w-full h-full overflow-hidden rounded-2xl">
-                <Image
-                  src={dest.image}
-                  alt={dest.name}
-                  fill
-                  className="object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-                
-                {/* Rating Badge */}
+        {/* Animated Grid */}
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={activeFilter}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6"
+          >
+            <AnimatePresence initial={false}>
+              {filteredDestinations.map((dest) => (
+                <motion.div
+                  key={dest.id}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  layout
+                  transition={{ duration: 0.3 }}
+                  className={`relative group break-inside-avoid rounded-2xl shadow-lg ${dest.aspect}`}
+                >
+                  <div className="relative w-full h-full overflow-hidden rounded-2xl">
+                    <Image
+                      src={dest.image}
+                      alt={dest.name}
+                      fill
+                      className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL="/placeholder.jpg"
+                    />
+                      {/* Rating Badge */}
                 <div className="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full flex items-center gap-1">
                   <FaStar className="text-[#F66F4D]" />
                   <span className="font-semibold">{dest.rating}</span>
@@ -120,13 +189,12 @@ const TopDestinations = () => {
                   <p className="text-lg">{dest.name}</p>
                 </div>
               </div>
-
-              {/* Hover Effects */}
-              <div className="absolute inset-0 border-4 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-              <div className="absolute inset-0 bg-[#F66F4D]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-            </div>
-          ))}
-        </div>
+                   
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Decorative Elements */}
